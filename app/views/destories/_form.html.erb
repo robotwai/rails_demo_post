@@ -1,0 +1,22 @@
+<%= form_with(model: destory, local: true) do |form| %>
+  <% if destory.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(destory.errors.count, "error") %> prohibited this destory from being saved:</h2>
+
+      <ul>
+      <% destory.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :Person %>
+    <%= form.text_field :Person, id: :destory_Person %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

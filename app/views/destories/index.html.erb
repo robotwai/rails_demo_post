@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Destories</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Person</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @destories.each do |destory| %>
+      <tr>
+        <td><%= destory.Person %></td>
+        <td><%= link_to 'Show', destory %></td>
+        <td><%= link_to 'Edit', edit_destory_path(destory) %></td>
+        <td><%= link_to 'Destroy', destory, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Destory', new_destory_path %>
