@@ -18,4 +18,20 @@ class SessionsController < ApplicationController
   	log_out
   	redirect_to root_url
   end
+
+  def applogin
+  	p params
+  	@user = User.find_by(email: params["email"].downcase)
+
+  	if @user && @user.authenticate(params["password"])
+  		remember(@user)
+  		respond_to do |format|
+	      format.json {render json: {'status'=>"0",'data'=> {"name": @user.name,"email": @user.email,"token": @user.remember_token}.to_json} }
+	    end
+	else
+		respond_to do |format|
+			format.json render json: {'status'=>"1",'data'=> "failed"}
+		end	
+  	end
+  end
 end
