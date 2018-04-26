@@ -26,10 +26,24 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
+
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 
   config.action_mailer.perform_caching = false
+
+  config.action_mailer.delivery_method = :smtp
+  host = '0.0.0.0:3000'
+  config.action_mailer.default_url_options = {host: host}
+
+  ActionMailer::Base.smtp_settings = {
+     :address => "smtp.126.com", #邮件服务器地址
+     :port => 25,
+     :domain => "126.com", #服务器域名，如xxx@yeah.net域名就是yeah.net 
+     :authentication => :login,
+     :user_name => "＃", #邮件用户名，如xxx@yeah.net用户名就是xxx 
+     :password => "＃", #与登录密码不同，此处是客户端授权密码，切记！
+  }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

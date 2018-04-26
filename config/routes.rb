@@ -23,6 +23,8 @@ Rails.application.routes.draw do
   delete '/logout',to: 'sessions#destroy'
   resources :users
 
-   post '/applogin',to: 'sessions#applogin'
+  post '/applogin',to: 'sessions#applogin'
+
+  resources :account_activations, only: [:edit]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

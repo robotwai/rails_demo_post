@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
-  before_action :looged_in_user, only: [:edit, :update]
+  before_action :looged_in_user, only: [:edit, :update,:index,:destroy]
   before_action :correct_user, only: [:edit, :update]
+  before_action :admin_user, only: :destroy
   def new
   	@user = User.new
   end
@@ -13,8 +14,9 @@ class UsersController < ApplicationController
   def create
   	@user = User.new(user_params)
   	if @user.save
-  		flash[:success] = "Wellcome to the Sample App"
-  		redirect_to @user
+      UserMailer.account_activation(@user).deliver_now
+  		flash[:info] = "Please check your email to activate your account"
+  		redirect_to root_url
   	else
   		render 'new'
   	end
@@ -35,7 +37,13 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.all
+    @users = User.paginate(page: params[:page])
+  end
+
+  def destroy
+    User.find(params[:id]).destroy
+    flash[:success] = "User deleted"
+    redirect_to users_url
   end
 
   private
@@ -56,5 +64,9 @@ class UsersController < ApplicationController
     def correct_user
       @user = User.find(params[:id])
       redirect_to(root_url) unless @user == current_user
+    end
+
+    def admin_user
+      redirect_to(root_url) unless current_user.admin?
     end
 end
