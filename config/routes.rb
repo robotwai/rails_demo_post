@@ -21,7 +21,11 @@ Rails.application.routes.draw do
   get '/login', to: 'sessions#new'
   post '/login',to: 'sessions#create'
   delete '/logout',to: 'sessions#destroy'
-  resources :users
+  resources :users do
+    member do
+      get :following,:followers
+    end
+  end
 
   post '/applogin',to: 'sessions#applogin'
 
@@ -29,5 +33,6 @@ Rails.application.routes.draw do
 
   resources :password_resets ,only: [:new,:edit,:create,:update]
   resources :microposts ,only: [:create,:destroy]
+  resources :relationships ,only: [:create,:destroy]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
