@@ -1,24 +1,11 @@
-# README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# Rails 学习历程
+1. 去年开始接触，并跟着朋友做了一个小项目，当时的学习可能挺被动的吧，特别是里面的东西很多涉及css、js 等，书写起来跟之前的java 感觉很多不适应。然后那个小项目完成之后，早早的把书和资料都放到脑后，这也是必然之事。
+2. 今年为啥又开始捡起来呢？最早是因为在使用Google安卓架构组件的时候，存在一些涉及网络请求的demo，自己不上手写，总感觉不踏实。又不想重新去搞java ee，一回想，去年的rails还有点印象，要不这下自己来试试。买好书，一点一点来看。
+3. 书是Michael Hartl的Ruby on Rails第四版，虽然去年已经略过大半，但是今年再读，还是挺有意思的，跟Android开发不同，作者的测试写的这是多啊，好多都是先写好测试，再开始写代码。css、Ajax这些前端内容也是穿插其中。读起来也还好，毕竟有目标，自己也没有陷入细节之中，从第一份代码提交到现在，书翻完了，刚好一个月，也算是对自己的一份总结。
+4. 一边写rails 一边也在写Android，深入下来，感觉两者共通之处还是有的。但是一深入想要说清楚，却又很困难，所以这里还是留给以后吧
+# 下一阶段的打算
+1. 优化sample，提供json response
+2. 部署到bwg，再看看rails资源加载的相关问题
+3. 推荐系统，查看附近的人，推荐新的follower
+4. 点赞，回复。热度排名
+5. 完善注册，提供第三方登陆，对移动设备优化

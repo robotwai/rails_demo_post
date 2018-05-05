@@ -1,13 +1,16 @@
 <%= form_for(@user) do |f| %>
 	<%= render 'shared/error_message' ,object: f.object%>
-	<%= f.label :name%>
+	<%= f.label :name ,"名字"%>
 	<%= f.text_field :name, class: 'form-control' %>
-	<%= f.label :email%>
+	<%= f.label :email ,"邮箱"%>
 	<%= f.email_field :email ,class: 'form-control' %>
-	<%= f.label :password%>
+	<%= f.label :password,"密码"%>
 	<%= f.password_field :password,class: 'form-control' %>
-	<%= f.label :password_confirmation,"Confirmation"%>
+	<%= f.label :password_confirmation,"确认密码"%>
 	<%= f.password_field :password_confirmation ,class: 'form-control' %>
 
-	<%= f.submit yield(:button_text),class: "btn btn-primary" %>
+	<span class="picture">
+		修改头像<%= f.file_field :icon ,accept: 'image/jpeg,image/gif,image/png' %>
+	</span>
+	<%= f.submit yield(:button_text),class: "btn btn-primary",text: "提交"%>
 <% end %>

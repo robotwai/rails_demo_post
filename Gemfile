@@ -37,6 +37,11 @@ gem 'bootstrap-will_paginate','0.0.10'
 gem 'rails-controller-testing', '~> 1.0', '>= 1.0.2'
 gem 'carrierwave' ,'~> 0.11.2'
 gem 'mini_magick' ,'~> 4.5.1'
+
+gem 'rails-i18n', '~> 4.0.0' # For 4.0.x
+gem 'http_accept_language'
+
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
