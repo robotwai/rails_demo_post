@@ -27,8 +27,6 @@ Rails.application.routes.draw do
     end
   end
 
-  post '/applogin',to: 'sessions#applogin'
-
   resources :account_activations, only: [:edit]
 
   resources :password_resets ,only: [:new,:edit,:create,:update]
