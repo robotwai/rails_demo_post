@@ -23,7 +23,7 @@ class SessionsController < ApplicationController
           format.json {
             remember(user)
             p user.icon
-            render json: {'status'=>"0",'data'=> {"name": user.name,"email": user.email,"token": user.remember_token,"icon": user.icon.url}.to_json} 
+            render json: {'status'=>"0",'data'=> {"name": user.name,"email": user.email,"token": user.remember_token,"icon": user.icon.url,"id": user.id}.to_json} 
           }
         end
         

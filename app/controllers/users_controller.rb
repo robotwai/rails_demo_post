@@ -7,19 +7,57 @@ class UsersController < ApplicationController
   end
 
   def show
-  	@user = User.find(params[:id])
-    @microposts = @user.microposts.paginate(page: params[:page])
+    p params
+    respond_to do |format|
+      format.html {
+        @user = User.find(params[:id])
+        @microposts = @user.microposts.paginate(page: params[:page])
+      }
+
+      format.json {
+        @user = User.find(params[:id])
+        @feed_items = @user.feed.paginate(page: params[:page])
+        render json: @feed_items
+      }
+    end
+  	
   	# debugger
   end
 
   def create
-  	@user = User.new(user_params)
+    p params
+    if params[:user].nil?
+      @user = User.new
+      @user.name = params[:name]
+      @user.email = params[:email]
+      @user.password = params[:password]
+      @user.password_confirmation = params[:password_confirmation]
+      @user.icon = params[:icon]
+    else
+      @user = User.new(user_params)
+    end
+  	
   	if @user.save
-      @user.send_activation_email
-  		flash[:info] = "Please check your email to activate your account"
-  		redirect_to root_url
+      respond_to do |format|
+            format.html {
+              @user.send_activation_email
+              flash[:info] = "Please check your email to activate your account"
+              redirect_to root_url
+            }
+            format.json {
+              render json: {'status'=>"0",'data'=> "Please check your email to activate your account"}
+            }
+      end
+
   	else
-  		render 'new'
+      respond_to do |format|
+            format.html {
+              render 'new'
+            }
+            format.json {
+              render json: {'status'=>"1",'data'=> "Invalid email/password combination"}
+            }
+      end
   	end
   end
 
