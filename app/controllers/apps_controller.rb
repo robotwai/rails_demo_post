@@ -36,6 +36,15 @@ class AppsController < ApplicationController
         render json: a
 	end
 
+	def seedmicropost
+		@micropost = @user.microposts.build(content: params[:content],picture: params[:picture] )
+      	
+      	if @micropost.save
+			render json: {'status'=>"0",'data'=> "send success"}
+		else
+			render json: {'status'=>"1",'data'=> "Check your email for the activation link"}
+		end
+	end
 
 	private
 

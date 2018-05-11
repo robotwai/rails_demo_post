@@ -35,4 +35,5 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   post "app/loggin", to: 'apps#loggin'
   get "app/feed", to: 'apps#feed'
+  post "app/seedmicropost", to: 'apps#seedmicropost'
 end
