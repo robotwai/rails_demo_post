@@ -36,4 +36,5 @@ Rails.application.routes.draw do
   post "app/loggin", to: 'apps#loggin'
   get "app/feed", to: 'apps#feed'
   post "app/seedmicropost", to: 'apps#seedmicropost'
+  post "app/register", to: 'apps#register'
 end
