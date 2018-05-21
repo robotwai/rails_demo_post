@@ -1,5 +1,6 @@
 class AppsController < ApplicationController
 	before_action :find_user, except: [:loggin,:register]
+
 	def loggin
 	  user = User.find_by(email: params["email"].downcase)
       ps = params["password"]
@@ -17,10 +18,14 @@ class AppsController < ApplicationController
             	"followed": user.following.count,
             	"follower": user.followers.count}.to_json} 
 	      else
-            render json: {'status'=>"1",'data'=> "Check your email for the activation link"}
+            render json: {'status'=>"1",'data'=> {
+	        	'message': 'Check your email for the activation link'
+	        	}.to_json}
 	      end
   	  else
-          render json: {'status'=>"1",'data'=> "Invalid email/password combination"}
+          render json: {'status'=>"1",'data'=> {
+	        	'message': 'Invalid email/password combination'
+	        	}.to_json}
 	  end
 
     end
@@ -49,9 +54,13 @@ class AppsController < ApplicationController
 		@micropost = @user.microposts.build(content: params[:content],picture: params[:picture] )
       	
       	if @micropost.save
-			render json: {'status'=>"0",'data'=> "send success"}
+			render json: {'status'=>"0",'data'=> {
+	        	'message': 'success'
+	        	}.to_json}
 		else
-			render json: {'status'=>"1",'data'=> "Check your email for the activation link"}
+			render json: {'status'=>"1",'data'=> {
+	        	'message': 'send faild'
+	        	}.to_json}
 		end
 	end
 
@@ -63,10 +72,29 @@ class AppsController < ApplicationController
 	    @user.password_confirmation = params[:password_confirmation]
 	    @user.icon = params[:icon]
 	  	if @user.save
-	        render json: {'status'=>"0",'data'=> "Please check your email to activate your account"}
+	        render json: {'status'=>"0",'data'=> {
+	        	'message': 'success'
+	        	}.to_json}
 	  	else
-	        render json: {'status'=>"1",'data'=> "Invalid email/password combination"}
+	       
+	        render json: {'status'=>"1",'data'=> {
+	        	'message': 'Invalid email/password combination'
+	        	}.to_json}
 	  	end
+	end
+
+	def commit
+		@micropost = Micropost.find(params[:id])
+		@comment = @micropost.build(body: params[:content],commenter: ' ')
+		if @comment.save
+			render json: {'status'=>"0",'data'=> {
+	        	'message': 'success'
+	        	}.to_json}
+		else
+			render json: {'status'=>"1",'data'=> {
+	        	'message': 'send faild'
+	        	}.to_json}
+		end
 	end
 
 	private
@@ -76,7 +104,9 @@ class AppsController < ApplicationController
 		if @user.nil?
 			p "aaaa"
 			# json_str= {'status'=>"2",'data'=> "token is empty"}
-			render json: {'status'=>"2",'data'=> "token is empty"}
+			render json: {'status'=>"2",'data'=> {
+	        	'message': 'token is empty'
+	        	}.to_json}
 			# render :json=>{'status'=>"2",'data'=> "token is empty"}, status=>"301"
 		end
 	end
