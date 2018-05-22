@@ -1,7 +1,9 @@
 <%= form_for(@comment) do |f| %>
+<%= render 'shared/error_message',object: f.object %>
 <div> <%= hidden_field_tag :micropost_id,micropost.id %> </div>
+<div> <%= hidden_field_tag :commenter_id,current_user.id %> </div>
 	<div class="field">
 		<%= f.text_area :body,placeholder: "Compose new micropost..." %>
 	</div>
-	<%= f.submit "Post",class: "btn btn-primary" %>
+	<%= f.submit "Commit",class: "btn btn-primary" %>
 <% end %>

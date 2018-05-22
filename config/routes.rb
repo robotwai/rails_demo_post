@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   resources :microposts ,only: [:create,:destroy]
   resources :comments ,only: [:create,:destroy]
   resources :relationships ,only: [:create,:destroy]
+  resources :dots ,only: [:create,:destroy]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   post "app/loggin", to: 'apps#loggin'
   get "app/feed", to: 'apps#feed'

@@ -214,8 +214,16 @@ span.picture{
 	}
 }
 
+.jumbotron{
+	padding: 0;
+	background-color: white;
+	:hover{
+		background-color: #F2F6FA;
+	}
+}
 
-
+.like{ font-size:66px;  color:#ccc; cursor:pointer;}
+.cs{color:#f00;}
 
 
 

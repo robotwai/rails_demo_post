@@ -8,18 +8,10 @@ class UsersController < ApplicationController
 
   def show
     p params
-    respond_to do |format|
-      format.html {
-        @user = User.find(params[:id])
-        @microposts = @user.microposts.paginate(page: params[:page])
-      }
-
-      format.json {
-        @user = User.find(params[:id])
-        @feed_items = @user.feed.paginate(page: params[:page])
-        render json: @feed_items
-      }
-    end
+    
+    @user = User.find(params[:id])
+    @microposts = @user.microposts.paginate(page: params[:page])
+    @comment = @user.comments.build
   	
   	# debugger
   end
