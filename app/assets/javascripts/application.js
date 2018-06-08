@@ -16,26 +16,67 @@
 // = require jquery
 //= require bootstrap
 
-$(function(){
-        $("#praise").click(function(){
-            var praise_img = $("#praise-img");
-            var text_box = $("#add-num");
-            var praise_txt = $("#praise-txt");
+$(document).ready(function(){
+
+        $(".praise").click(function(){
+            var a =$(this).attr("data-mid");
+            var b =$(this).attr("data-uid");
+            var c =$(this).attr("data-did");
+            alert(a);
+
+            var praise = $("#a"+a);
+
+            var praise_txt = $(praise).children(".praise-txt");
             var num=parseInt(praise_txt.text());
-            if(praise_img.attr("src") == ("/assets/yizan.png")){
-                $(this).html("<img src='/assets/zan.png' id='praise-img' class='animation' />");
-                praise_txt.removeClass("hover");
-                text_box.show().html("<em class='add-animation'>-1</em>");
-                $(".add-animation").removeClass("hover");
-                num -=1;
-                praise_txt.text(num)
-            }else{
-                $(this).html("<img src='/assets/yizan.png' id='praise-img' class='animation' />");
-                praise_txt.addClass("hover");
-                text_box.show().html("<em class='add-animation'>+1</em>");
-                $(".add-animation").addClass("hover");
+
+            var display =$(praise).children(".praise-img").css('display');
+            if(display=="block"){
+               
+                $(praise).children(".praise-img-no").css('display','block');
+                $(praise).children(".praise-img").css('display','none'); 
                 num +=1;
                 praise_txt.text(num)
+                $.ajax({
+                  type: 'POST',
+                  url: "dots",
+                  data: {
+                        micropost_id: a,
+                        commenter_id: b
+                  },
+                  dataType: "json",
+                  success: function(result){
+                    
+                      alert("数据：" + JSON.parse(result.data).id);
+                        $(this).attr("data-did",JSON.parse(result.data).id);
+                    }
+                });
+
+                // window.location.reload();
+               
+            }else{
+                
+
+                $(praise).children(".praise-img-no").css('display','none');
+                $(praise).children(".praise-img").css('display','block'); 
+               
+                num -=1;
+                praise_txt.text(num);
+
+                 $.ajax({
+                  type:"delete",
+                  url: "dots/"+c,
+                  data: {
+                        id: c,
+                        
+                  },
+                  dataType: "json",
+                  success: function(data,status){
+                      alert("数据：" + data + "\n状态：" + status);
+                    },
+                  error:function(xhr,textstatus,thrown){
+                            alert("数据：" + textstatus + "\n状态：" + thrown);
+                    }
+                });
             }
         });
     })

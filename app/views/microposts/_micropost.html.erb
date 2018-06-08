@@ -5,12 +5,28 @@
 	<span class="content">
 	 	<%= micropost.content %>
 	 	<%= image_tag micropost.picture.url if micropost.picture? %>
-	 	
 	</span>
 
 	<ul class="nav nav-pills" role="tablist">
         <li role="presentation" class="active"><a href="#">Home <span class="badge">42</span></a></li>
-        <li role="presentation"><button id="praise" type="button">点赞</button></li>
+        <li role="presentation">
+        	<div class="praise" data-mid="<%= micropost.id %>" data-uid="<%= current_user.id %>"
+        	 id= "a<%= micropost.id %>" data-did="<%= micropost.dotId(current_user.id) %>" >
+        	 	
+        	 		<% if micropost.isdot(current_user.id) %>
+        			<img class="praise-img" src="/assets/zan.png" style="display:none"/>
+		        	<img class="praise-img-no" src="/assets/yizan.png" style="display:block"/>
+	        	<% else %>
+		        	<img class="praise-img" src="/assets/zan.png" style="display:block"/>
+		        	<img class="praise-img-no" src="/assets/yizan.png" style="display:none"/>
+		        	
+	        	<% end %>
+
+        	 	
+        		
+	        	<span class="praise-txt"><%= micropost.dots.count %></span>
+        	</div>
+        </li>
         <li role="presentation"><a href="#">Messages <span class="badge">3</span></a></li>
   	</ul>
 		

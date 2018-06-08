@@ -15,6 +15,10 @@ class CommentsController < ApplicationController
 		end
 	end
 
+	def destory
+		
+	end
+
 
 
 	private
