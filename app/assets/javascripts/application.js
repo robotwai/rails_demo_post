@@ -47,7 +47,7 @@ $(document).ready(function(){
                   success: function(result){
                     
                       alert("数据：" + JSON.parse(result.data).id);
-                        $(this).attr("data-did",JSON.parse(result.data).id);
+                        praise.attr("data-did",JSON.parse(result.data).id);
                     }
                 });
 

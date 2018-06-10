@@ -12,7 +12,8 @@
         <li role="presentation">
         	<div class="praise" data-mid="<%= micropost.id %>" data-uid="<%= current_user.id %>"
         	 id= "a<%= micropost.id %>" data-did="<%= micropost.dotId(current_user.id) %>" >
-        	 	
+        	 	<span>
+        	 		
         	 		<% if micropost.isdot(current_user.id) %>
         			<img class="praise-img" src="/assets/zan.png" style="display:none"/>
 		        	<img class="praise-img-no" src="/assets/yizan.png" style="display:block"/>
@@ -25,6 +26,8 @@
         	 	
         		
 	        	<span class="praise-txt"><%= micropost.dots.count %></span>
+        	 	</span>
+    
         	</div>
         </li>
         <li role="presentation"><a href="#">Messages <span class="badge">3</span></a></li>
