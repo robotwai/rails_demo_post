@@ -228,21 +228,42 @@ span.picture{
 .praise-img-no{
 	width: 30px ;
 	height: 30px ;
-	style{
-	vertical-align:middle;
-	}
 }
 
 .praise-img{
 	width: 30px ;
 	height: 30px ;
-	style{
-	vertical-align:middle;
-	}
 }
 
-.praise span{
-	
+.m-box-center {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+.m-box-center-a {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.m-box-col {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    width: 100%;
+    display: block;
+    min-width: 0;
+}
+.commit-img{
+	width: 30px ;
+	height: 30px ;
 }
 
 

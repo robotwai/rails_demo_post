@@ -8,10 +8,10 @@
 	</span>
 
 	<ul class="nav nav-pills" role="tablist">
-        <li role="presentation" class="active"><a href="#">Home <span class="badge">42</span></a></li>
-        <li role="presentation">
+        
+        <li>
         	<div class="praise" data-mid="<%= micropost.id %>" data-uid="<%= current_user.id %>"
-        	 id= "a<%= micropost.id %>" data-did="<%= micropost.dotId(current_user.id) %>" >
+        	 id= "a<%= micropost.id %>" data-did="<%= micropost.dotId(current_user.id) %>">
         	 	
         	 		<% if micropost.isdot(current_user.id) %>
         			<img class="praise-img" src="/assets/zan.png" style="display:none"/>
@@ -27,7 +27,21 @@
 	        	<span class="praise-txt"><%= micropost.dots.count %></span>
         	</div>
         </li>
-        <li role="presentation"><a href="#">Messages <span class="badge">3</span></a></li>
+        <li>
+        	<div class="commit" id = "b<%= micropost.id %>" ><img class="commit-img" src="/assets/commit.png" data-mid="<%= micropost.id %>"/>
+        	 <span><%= micropost.comments.count %></span>
+        	 <div class="commit-list" style="display:none">
+        	 	<% if micropost.comments.any? %>
+					<ol class="microposts">
+					<%= render micropost.comments %>
+					</ol>
+				<% end %>
+				<span class="micropost_form">
+					<%= render 'shared/comment_form', micropost: micropost %>
+				</span>
+        	 </div>
+        	</div>
+        </li>
   	</ul>
 		
 
@@ -43,4 +57,5 @@
 
 </li>
 </div>
+
 

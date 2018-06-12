@@ -11,18 +11,16 @@
 // about supported directives.
 //
 //= require rails-ujs
-//= require turbolinks
 //= require_tree .
 // = require jquery
 //= require bootstrap
 
-$(document).ready(function(){
+$(function(){
 
         $(".praise").click(function(){
             var a =$(this).attr("data-mid");
             var b =$(this).attr("data-uid");
             var c =$(this).attr("data-did");
-            alert(a);
 
             var praise = $("#a"+a);
 
@@ -38,7 +36,7 @@ $(document).ready(function(){
                 praise_txt.text(num)
                 $.ajax({
                   type: 'POST',
-                  url: "dots",
+                  url: "/dots",
                   data: {
                         micropost_id: a,
                         commenter_id: b
@@ -46,8 +44,8 @@ $(document).ready(function(){
                   dataType: "json",
                   success: function(result){
                     
-                      alert("数据：" + JSON.parse(result.data).id);
-                        $(this).attr("data-did",JSON.parse(result.data).id);
+                      // alert("数据：" + JSON.parse(result.data).id);
+                        praise.attr("data-did",JSON.parse(result.data).id);
                     }
                 });
 
@@ -64,14 +62,14 @@ $(document).ready(function(){
 
                  $.ajax({
                   type:"delete",
-                  url: "dots/"+c,
+                  url: "/dots/"+c,
                   data: {
                         id: c,
                         
                   },
                   dataType: "json",
                   success: function(data,status){
-                      alert("数据：" + data + "\n状态：" + status);
+                      // alert("数据：" + data + "\n状态：" + status);
                     },
                   error:function(xhr,textstatus,thrown){
                             alert("数据：" + textstatus + "\n状态：" + thrown);
@@ -79,4 +77,22 @@ $(document).ready(function(){
                 });
             }
         });
+
+        $(".commit-img").click(function(){
+            var a =$(this).attr("data-mid");
+            var commit = $("#b"+a);
+            
+            var display =$(commit).children(".commit-list").css('display');
+            if (display=="block") {
+                $(commit).children(".commit-list").css('display','none');
+            }else{
+
+                $(commit).children(".commit-list").css('display','block');
+            }
+        });
+
+        $("#lz").click(function(){
+ alert("lz");
+        });
+
     })

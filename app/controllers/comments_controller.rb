@@ -5,13 +5,21 @@ class CommentsController < ApplicationController
 		p params
 		p current_user.id
 		@comment = Comment.new(micropost_id: params[:micropost_id],body: params[:comment][:body],user_id: params[:commenter_id])
-		if @comment.save
-			flash[:success] = "comment Created"
-			redirect_to request.referrer || root_url
-		else
-			# @feed_items = []
-			flash[:dagger] = "comment failed"
-			redirect_to request.referrer || root_url
+		respond_to do |format|
+			if @comment.save
+				format.html {
+					flash[:success] = "comment Created"
+					redirect_to request.referrer || root_url
+				}
+				format.js
+				
+			else
+				format.html {
+					flash[:dagger] = "comment failed"
+					redirect_to request.referrer || root_url
+				}
+				
+			end
 		end
 	end
 

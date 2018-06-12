@@ -4,7 +4,7 @@ class DotsController < ApplicationController
 		p current_user.id
 		@dot = Dot.new(micropost_id: params[:micropost_id],user_id: params[:commenter_id])
 		if @dot.save
-			flash[:success] = "dot Created"
+			# flash[:success] = "dot Created"
 			render json: {'status'=>"0",'data'=> {
 	        	'message': 'success',
 	        	'id': @dot.id
