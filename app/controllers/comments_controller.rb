@@ -11,7 +11,7 @@ class CommentsController < ApplicationController
 					flash[:success] = "comment Created"
 					redirect_to request.referrer || root_url
 				}
-				format.js
+				format.js {}
 				
 			else
 				format.html {

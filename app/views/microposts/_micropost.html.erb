@@ -32,7 +32,7 @@
         	 <span><%= micropost.comments.count %></span>
         	 <div class="commit-list" style="display:none">
         	 	<% if micropost.comments.any? %>
-					<ol class="microposts">
+					<ol class="comments" data-id="<%= micropost.id %>" id="c<%= micropost.id %>">
 					<%= render micropost.comments %>
 					</ol>
 				<% end %>

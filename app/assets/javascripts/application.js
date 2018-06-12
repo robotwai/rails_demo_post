@@ -91,8 +91,4 @@ $(function(){
             }
         });
 
-        $("#lz").click(function(){
- alert("lz");
-        });
-
     })
