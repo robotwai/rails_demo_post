@@ -1,6 +1,4 @@
-<% if @comment.id.nil? %>
-  
-<% else %>
+
   $("<%= escape_javascript(render @comment) %>").appendTo("#c"+"<%= @comment.micropost_id %>");
-<% end %>
+
 

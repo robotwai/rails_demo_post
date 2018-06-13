@@ -40,4 +40,5 @@ Rails.application.routes.draw do
   post "app/seedmicropost", to: 'apps#seedmicropost'
   post "app/register", to: 'apps#register'
   post "app/dot", to: 'apps#dot'
+  post "app/dotDestroy",to: 'apps#dotDestroy'
 end

@@ -122,6 +122,27 @@ class AppsController < ApplicationController
 		end
 	end
 
+	def dotDestroy
+		@dot = Dot.find(params[:id])
+		@micropost = Micropost.find(@dot.micropost_id)
+		if @dot.destroy
+			render json: {'status'=>"0",'data'=> {
+            	"id": @micropost.id,
+            	"content": @micropost.content,
+            	"user_id": @micropost.user_id,
+            	"picture": @micropost.picture.url,
+            	"icon": @micropost.user.icon.url,
+            	"user_name": @micropost.user.name,
+            	"created_at": @micropost.created_at,
+            	"dots_num": @micropost.dots.count,
+            	"comment_num": @micropost.comments.count,}.to_json}
+        else
+        	render json: {'status'=>"1",'data'=> {
+	        	'message': 'error'
+	        	}.to_json}
+	    end
+	end
+
 	def getMicropost
 		@micropost = Micropost.find(params[:id])
 		render json: {'status'=>"0",'data'=> {
