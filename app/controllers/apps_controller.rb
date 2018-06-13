@@ -44,6 +44,9 @@ class AppsController < ApplicationController
         	@app_feed[:user_name] = User.find(x[:user_id]).name
         	@app_feed[:icon] = User.find(x[:user_id]).icon.url
         	@app_feed[:created_at] = x[:created_at]
+        	@app_feed[:dotId] = x.dotId(@user.id)
+        	@app_feed[:dots_num] = x.dots.count
+        	@app_feed[:comment_num] = x.comments.count
         	a.push(@app_feed)
         end
         # render json: a
@@ -96,6 +99,44 @@ class AppsController < ApplicationController
 	        	}.to_json}
 		end
 	end
+
+	def dot
+		@dot = Dot.new(micropost_id: params[:micropost_id],user_id: @user.id)
+		@micropost = Micropost.find(params[:micropost_id])
+		if @dot.save
+			render json: {'status'=>"0",'data'=> {
+            	"id": @micropost.id,
+            	"content": @micropost.content,
+            	"user_id": @micropost.user_id,
+            	"picture": @micropost.picture.url,
+            	"icon": @micropost.user.icon.url,
+            	"user_name": @micropost.user.name,
+            	"created_at": @micropost.created_at,
+            	"dotId": @micropost.dotId(@user.id),
+            	"dots_num": @micropost.dots.count,
+            	"comment_num": @micropost.comments.count,}.to_json} 
+        else
+        	render json: {'status'=>"1",'data'=> {
+	        	'message': 'error'
+	        	}.to_json}
+		end
+	end
+
+	def getMicropost
+		@micropost = Micropost.find(params[:id])
+		render json: {'status'=>"0",'data'=> {
+            	"id": @micropost.id,
+            	"content": @micropost.content,
+            	"user_id": @micropost.user_id,
+            	"icon": @micropost.user.icon.url,
+            	"user_name": @micropost.user.name,
+            	"created_at": @micropost.created_at,
+            	"dotId": @micropost.dotId(@user.id),
+            	"dots_num": @micropost.dots.count,
+            	"comment_num": @micropost.comments.count,}.to_json} 
+
+	end
+
 
 	private
 	

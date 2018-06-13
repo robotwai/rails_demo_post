@@ -17,21 +17,22 @@
 
 $(function(){
 
-        $(".praise").click(function(){
+        $(".dot").click(function(){
             var a =$(this).attr("data-mid");
             var b =$(this).attr("data-uid");
             var c =$(this).attr("data-did");
 
             var praise = $("#a"+a);
 
-            var praise_txt = $(praise).children(".praise-txt");
+            var praise_txt = $(praise).children(".dot-txt");
             var num=parseInt(praise_txt.text());
 
-            var display =$(praise).children(".praise-img").css('display');
-            if(display=="block"){
+            var src =$(praise).children(".dot-img").attr("src");
+            if(src=="/assets/zan.png"){
                
-                $(praise).children(".praise-img-no").css('display','block');
-                $(praise).children(".praise-img").css('display','none'); 
+                // $(praise).children(".praise-img-no").css('display','block');
+                // $(praise).children(".praise-img").css('display','none'); 
+                 $(praise).children(".dot-img").attr('src',"/assets/yizan.png"); 
                 num +=1;
                 praise_txt.text(num)
                 $.ajax({
@@ -49,14 +50,11 @@ $(function(){
                     }
                 });
 
-                // window.location.reload();
                
             }else{
                 
-
-                $(praise).children(".praise-img-no").css('display','none');
-                $(praise).children(".praise-img").css('display','block'); 
-               
+        
+               $(praise).children(".dot-img").attr('src',"/assets/zan.png"); 
                 num -=1;
                 praise_txt.text(num);
 

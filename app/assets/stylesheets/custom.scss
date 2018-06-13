@@ -43,12 +43,14 @@ body{
 #logo{
 	float: left;
 	margin-right: 10px;
+	margin-top:14px;
 	font-size: 1.7em;
 	color: #fff;
 	text-transform: uppercase;
 	letter-spacing: -1px;
 	padding-top: 9px;
 	font-weight: bold;
+	text-align: center; /*设置文本水平居中*/
 }
 #logo:hover{
 	color:#fff;
@@ -225,12 +227,7 @@ span.picture{
 .like{ font-size:66px;  color:#ccc; cursor:pointer;}
 .cs{color:#f00;}
 
-.praise-img-no{
-	width: 30px ;
-	height: 30px ;
-}
-
-.praise-img{
+.dot-img{
 	width: 30px ;
 	height: 30px ;
 }
@@ -303,6 +300,14 @@ span.picture{
 	}
 }
 
+.dot{
+	width: 60px ;
+	height: 30px ;
+}
+.nav {
+	margin-left: 50px;
+	margin-top: 10px;
+}
 
 
 

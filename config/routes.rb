@@ -39,4 +39,5 @@ Rails.application.routes.draw do
   get "app/feed", to: 'apps#feed'
   post "app/seedmicropost", to: 'apps#seedmicropost'
   post "app/register", to: 'apps#register'
+  post "app/dot", to: 'apps#dot'
 end

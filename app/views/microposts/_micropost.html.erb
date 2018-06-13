@@ -10,32 +10,29 @@
 	<ul class="nav nav-pills" role="tablist">
         
         <li>
-        	<div class="praise" data-mid="<%= micropost.id %>" data-uid="<%= current_user.id %>"
+        	<div class="dot" data-mid="<%= micropost.id %>" data-uid="<%= current_user.id %>"
         	 id= "a<%= micropost.id %>" data-did="<%= micropost.dotId(current_user.id) %>">
         	 	
-        	 		<% if micropost.isdot(current_user.id) %>
-        			<img class="praise-img" src="/assets/zan.png" style="display:none"/>
-		        	<img class="praise-img-no" src="/assets/yizan.png" style="display:block"/>
+    	 		<% if micropost.isdot(current_user.id) %>
+        			<img class="dot-img" src="/assets/yizan.png" />
 	        	<% else %>
-		        	<img class="praise-img" src="/assets/zan.png" style="display:block"/>
-		        	<img class="praise-img-no" src="/assets/yizan.png" style="display:none"/>
-		        	
+		        	<img class="dot-img" src="/assets/zan.png" />
 	        	<% end %>
 
-        	 	
-        		
-	        	<span class="praise-txt"><%= micropost.dots.count %></span>
+	        	<span class="dot-txt"><%= micropost.dots.count %></span>
         	</div>
         </li>
         <li>
         	<div class="commit" id = "b<%= micropost.id %>" ><img class="commit-img" src="/assets/commit.png" data-mid="<%= micropost.id %>"/>
         	 <span><%= micropost.comments.count %></span>
         	 <div class="commit-list" style="display:none">
-        	 	<% if micropost.comments.any? %>
-					<ol class="comments" data-id="<%= micropost.id %>" id="c<%= micropost.id %>">
-					<%= render micropost.comments %>
-					</ol>
-				<% end %>
+        	 	
+				<ol class="comments" data-id="<%= micropost.id %>" id="c<%= micropost.id %>">
+					<% if micropost.comments.any? %>
+						<%= render micropost.comments %>
+					<% end %>
+				</ol>
+				
 				<span class="micropost_form">
 					<%= render 'shared/comment_form', micropost: micropost %>
 				</span>
