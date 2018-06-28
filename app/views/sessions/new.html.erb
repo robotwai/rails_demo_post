@@ -1,23 +1,66 @@
 <% provide(:title,"Log in") %>
-<h1>Log in</h1>
-<div class="row">
-	<div class = "co1-md-6 co1-offset-3">
-		<%= form_for(:session,url: login_path) do |f| %>
-		<%= f.label :email %>
-		<%= f.email_field :email,class: 'form-control' %>
 
-		<%= f.label :password %>
-		<%= f.password_field :password,class: 'form-control' %>
+<div id="login">
+    
+        
+            
+            	<%= form_for(:session,url: login_path,:html => {:class=>'container offset1 loginform'}) do |f| %>
+                <div id="owl-login">
+                    <div class="hand"></div>
+                    <div class="hand hand-r"></div>
+                    <div class="arms">
+                        <div class="arm"></div>
+                        <div class="arm arm-r"></div>
+                    </div>
+                </div>
+                <div class="pad">
 
-		<%= f.label :remember_me,class: "checkbox inline" do %>
-			<%= f.check_box :remember_me %>
-			<span> Remember me on thie Computer</span>
-		<% end %>
+                    <div class="control-group">
+                        <div class="controls">
 
-		<%= f.submit "Log in",class: "btn btn-primary" %>
-		<% end %>
-		<p>New User? <%= link_to "Sign up now!",signup_path %> </p>
+                            <label for="email" class="control-label fa fa-envelope"></label>
+                            <%= f.email_field :email,id: "email",class: 'form-control input-medium',placeholder: "Email",autofocus: 'autofocus',type: 'email' %>
+                            
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <label for="password" class="control-label fa fa-asterisk"></label>
+                           	<%= f.password_field :password,id: "password",class: 'form-control input-medium',type: "password", placeholder: "Password" %>
+                            
+                        </div>
+                    </div>
+                    <div >
+                        <div class="check-box">
+                             <%= f.label :remember_me do %>
+								<%= f.check_box :remember_me %>
+							<span> Remember me on thie Computer</span>
+							<% end %>
+                        </div>
+                    </div>
+                   
+                </div>
+                 <div class="form-actions">
+                 <%= f.submit "Login",class: "btn btn-primary" %>
+                 
+                   <p class="btn pull-left btn-link text-muted">Forget password? <%= link_to "find password",new_password_reset_path %> </p>
+                   <p class="btn pull-left btn-link text-muted">New User? <%= link_to "Sign up now!",signup_path %> </p>
+                 </div>
 
-		<p>Forget password? <%= link_to "find password",new_password_reset_path %> </p>
-	</div>
+				<% end %>
+            
+			
+
+   
+    <script src="assets/jquery.min.js"></script>
+    <script>
+    $(function() {
+
+        $('#login #password').focus(function() {
+            $('#owl-login').addClass('password');
+        }).blur(function() {
+            $('#owl-login').removeClass('password');
+        });
+    });
+    </script>
 </div>

@@ -8,6 +8,11 @@ footer {
 	color: #777; 
 }
 
+nav{
+	padding-left:100px;
+	padding-right: 160px;
+}
+
 footer a{
 	color: #555;
 }
@@ -41,17 +46,17 @@ body{
 }
 
 #logo{
-	float: left;
-	margin-right: 10px;
-	margin-top:14px;
-	font-size: 1.7em;
-	color: #fff;
-	text-transform: uppercase;
-	letter-spacing: -1px;
-	padding-top: 9px;
-	font-weight: bold;
-	text-align: center; /*设置文本水平居中*/
-}
+ 	float: left;	 	
+ 	margin-right: 10px;	
+ 	margin-left: 60px;
+ 	font-size: 1.7em;	 
+ 	color: #fff;	 	
+ 	text-transform: uppercase;	 	
+ 	letter-spacing: -1px;	 	
+ 	padding-top: 9px;	 	
+ 	font-weight: bold;	 	
+
+ }
 #logo:hover{
 	color:#fff;
 	text-decoration: none;
@@ -99,7 +104,7 @@ body{
 	list-style: none;
 	padding: 0;
 	li{
-		padding: 10px 0;
+		padding: 0;
 		border-top: 1px solid #e8e8e8;
 	}
 
@@ -218,10 +223,8 @@ span.picture{
 
 .jumbotron{
 	padding: 0;
-	background-color: white;
-	:hover{
-		background-color: #F2F6FA;
-	}
+	background-color: #ffffff;
+	
 }
 
 .like{ font-size:66px;  color:#ccc; cursor:pointer;}
@@ -306,7 +309,16 @@ span.picture{
 }
 .nav {
 	margin-left: 50px;
-	margin-top: 10px;
+	
+}
+.check-box{
+	position: relative;
+ 	height: 10px;
+ 	
+}
+
+header{
+	padding: 0px!important;
 }
 
 

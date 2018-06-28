@@ -3,13 +3,10 @@ class SessionsController < ApplicationController
   end
 
   def create
-    if params[:session].nil?
-      user = User.find_by(email: params["email"].downcase)
-      ps = params["password"]
-    else
+    p params
       user = User.find_by(email: params[:session][:email].downcase)
       ps = params[:session][:password]
-    end
+   
   	# user = User.find_by(email: params[:session][:email].downcase)
   	if user && user.authenticate(ps)
       if user.activated?
