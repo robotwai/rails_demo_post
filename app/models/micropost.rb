@@ -18,7 +18,7 @@ class Micropost < ApplicationRecord
 
   def dotId(user_id)
     if self.dots.find_by(user_id: user_id).nil?
-      return nil
+      return 0
     else
       return self.dots.find_by(user_id: user_id).id
     end
