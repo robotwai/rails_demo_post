@@ -38,8 +38,12 @@ class AppsController < ApplicationController
         	@app_feed = {}
         	@app_feed[:id] = x[:id]
         	@app_feed[:content] = x[:content]
-        	
-        	@app_feed[:picture] = x.picture.url
+        	@b= ''
+        	x.picture.each do |pic|
+        		@b = @b+pic.url+','
+        	end
+
+        	@app_feed[:picture] = @b
         	@app_feed[:user_id] = x[:user_id]
         	@app_feed[:user_name] = User.find(x[:user_id]).name
         	@app_feed[:icon] = User.find(x[:user_id]).icon.url
@@ -54,7 +58,20 @@ class AppsController < ApplicationController
 	end
 
 	def seedmicropost
-		@micropost = @user.microposts.build(content: params[:content],picture: params[:picture] )
+		picNum = params[:picNum].to_i
+		p picNum
+		if picNum==0
+
+			@micropost = @user.microposts.build(content: params[:content] )
+		else
+			pic = Array.new
+			for i in 0..picNum
+				name = 'picture'+i.to_s
+				pic.push(params[name])
+			end
+			@micropost = @user.microposts.build(content: params[:content] ,picture: pic)
+		end
+
       	
       	if @micropost.save
 			render json: {'status'=>"0",'data'=> {

@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="Rails rails_demo_post: test">
+  <database-model serializer="dbm" rdbms="SQLITE" format-version="4.8">
+    <root id="1">
+      <ServerVersion>3.20.1</ServerVersion>
+    </root>
+    <schema id="2" parent="1" name="main">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <collation id="3" parent="1" name="BINARY"/>
+    <collation id="4" parent="1" name="NOCASE"/>
+    <collation id="5" parent="1" name="RTRIM"/>
+    <table id="6" parent="2" name="ar_internal_metadata"/>
+    <table id="7" parent="2" name="comments"/>
+    <table id="8" parent="2" name="dots"/>
+    <table id="9" parent="2" name="microposts"/>
+    <table id="10" parent="2" name="people"/>
+    <table id="11" parent="2" name="relationships"/>
+    <table id="12" parent="2" name="schema_migrations"/>
+    <table id="13" parent="2" name="sqlite_master">
+      <System>1</System>
+    </table>
+    <table id="14" parent="2" name="sqlite_sequence">
+      <System>1</System>
+    </table>
+    <table id="15" parent="2" name="users"/>
+    <column id="16" parent="6" name="key">
+      <Position>1</Position>
+      <DataType>varchar|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="17" parent="6" name="value">
+      <Position>2</Position>
+      <DataType>varchar|0s</DataType>
+    </column>
+    <column id="18" parent="6" name="created_at">
+      <Position>3</Position>
+      <DataType>datetime|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="19" parent="6" name="updated_at">
+      <Position>4</Position>
+      <DataType>datetime|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="20" parent="6" name="sqlite_autoindex_ar_internal_metadata_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>key</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <key id="21" parent="6">
+      <ColNames>key</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>sqlite_autoindex_ar_internal_metadata_1</UnderlyingIndexName>
+    </key>
+    <column id="22" parent="7" name="id">
+      <Position>1</Position>
+      <DataType>INTEGER|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="23" parent="7" name="body">
+      <Position>2</Position>
+      <DataType>text|0s</DataType>
+    </column>
+    <column id="24" parent="7" name="micropost_id">
+      <Position>3</Position>
+      <DataType>integer|0s</DataType>
+    </column>
+    <column id="25" parent="7" name="created_at">
+      <Position>4</Position>
+      <DataType>datetime|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="26" parent="7" name="updated_at">
+      <Position>5</Position>
+      <DataType>datetime|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="27" parent="7" name="user_id">
+      <Position>6</Position>
+      <DataType>integer|0s</DataType>
+    </column>
+    <index id="28" parent="7" name="index_comments_on_micropost_id">
+      <ColNames>micropost_id</ColNames>
+      <ColumnCollations></ColumnCollations>
+    </index>
+    <index id="29" parent="7" name="index_comments_on_user_id">
+      <ColNames>user_id</ColNames>
+      <ColumnCollations></ColumnCollations>
+    </index>
+    <key id="30" parent="7">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="31" parent="8" name="id">
+      <Position>1</Position>
+      <DataType>INTEGER|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="32" parent="8" name="user_id">
+      <Position>2</Position>
+      <DataType>integer|0s</DataType>
+    </column>
+    <column id="33" parent="8" name="micropost_id">
+      <Position>3</Position>
+      <DataType>integer|0s</DataType>
+    </column>
+    <column id="34" parent="8" name="created_at">
+      <Position>4</Position>
+      <DataType>datetime|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="35" parent="8" name="updated_at">
+      <Position>5</Position>
+      <DataType>datetime|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="36" parent="8" name="index_dots_on_user_id_and_micropost_id">
+      <ColNames>user_id
+micropost_id</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <index id="37" parent="8" name="index_dots_on_user_id">
+      <ColNames>user_id</ColNames>
+      <ColumnCollations></ColumnCollations>
+    </index>
+    <index id="38" parent="8" name="index_dots_on_micropost_id">
+      <ColNames>micropost_id</ColNames>
+      <ColumnCollations></ColumnCollations>
+    </index>
+    <key id="39" parent="8">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="40" parent="9" name="id">
+      <Position>1</Position>
+      <DataType>INTEGER|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="41" parent="9" name="content">
+      <Position>2</Position>
+      <DataType>text|0s</DataType>
+    </column>
+    <column id="42" parent="9" name="user_id">
+      <Position>3</Position>
+      <DataType>integer|0s</DataType>
+    </column>
+    <column id="43" parent="9" name="created_at">
+      <Position>4</Position>
+      <DataType>datetime|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="44" parent="9" name="updated_at">
+      <Position>5</Position>
+      <DataType>datetime|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="45" parent="9" name="picture">
+      <Position>6</Position>
+      <DataType>varchar|0s</DataType>
+    </column>
+    <index id="46" parent="9" name="index_microposts_on_user_id_and_created_at">
+      <ColNames>user_id
+created_at</ColNames>
+      <ColumnCollations></ColumnCollations>
+    </index>
+    <index id="47" parent="9" name="index_microposts_on_user_id">
+      <ColNames>user_id</ColNames>
+      <ColumnCollations></ColumnCollations>
+    </index>
+    <key id="48" parent="9">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="49" parent="10" name="id">
+      <Position>1</Position>
+      <DataType>INTEGER|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="50" parent="10" name="name">
+      <Position>2</Position>
+      <DataType>varchar|0s</DataType>
+    </column>
+    <column id="51" parent="10" name="address">
+      <Position>3</Position>
+      <DataType>varchar|0s</DataType>
+    </column>
+    <column id="52" parent="10" name="phone">
+      <Position>4</Position>
+      <DataType>varchar|0s</DataType>
+    </column>
+    <column id="53" parent="10" name="created_at">
+      <Position>5</Position>
+      <DataType>datetime|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="54" parent="10" name="updated_at">
+      <Position>6</Position>
+      <DataType>datetime|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="55" parent="10">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="56" parent="11" name="id">
+      <Position>1</Position>
+      <DataType>INTEGER|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="57" parent="11" name="follower_id">
+      <Position>2</Position>
+      <DataType>integer|0s</DataType>
+    </column>
+    <column id="58" parent="11" name="followed_id">
+      <Position>3</Position>
+      <DataType>integer|0s</DataType>
+    </column>
+    <column id="59" parent="11" name="created_at">
+      <Position>4</Position>
+      <DataType>datetime|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="60" parent="11" name="updated_at">
+      <Position>5</Position>
+      <DataType>datetime|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="61" parent="11" name="index_relationships_on_follower_id_and_followed_id">
+      <ColNames>follower_id
+followed_id</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <index id="62" parent="11" name="index_relationships_on_follower_id">
+      <ColNames>follower_id</ColNames>
+      <ColumnCollations></ColumnCollations>
+    </index>
+    <index id="63" parent="11" name="index_relationships_on_followed_id">
+      <ColNames>followed_id</ColNames>
+      <ColumnCollations></ColumnCollations>
+    </index>
+    <key id="64" parent="11">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="65" parent="12" name="version">
+      <Position>1</Position>
+      <DataType>varchar|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="66" parent="12" name="sqlite_autoindex_schema_migrations_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>version</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <key id="67" parent="12">
+      <ColNames>version</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>sqlite_autoindex_schema_migrations_1</UnderlyingIndexName>
+    </key>
+    <column id="68" parent="13" name="type">
+      <Position>1</Position>
+      <DataType>text|0s</DataType>
+    </column>
+    <column id="69" parent="13" name="name">
+      <Position>2</Position>
+      <DataType>text|0s</DataType>
+    </column>
+    <column id="70" parent="13" name="tbl_name">
+      <Position>3</Position>
+      <DataType>text|0s</DataType>
+    </column>
+    <column id="71" parent="13" name="rootpage">
+      <Position>4</Position>
+      <DataType>integer|0s</DataType>
+    </column>
+    <column id="72" parent="13" name="sql">
+      <Position>5</Position>
+      <DataType>text|0s</DataType>
+    </column>
+    <column id="73" parent="14" name="name">
+      <Position>1</Position>
+    </column>
+    <column id="74" parent="14" name="seq">
+      <Position>2</Position>
+    </column>
+    <column id="75" parent="15" name="id">
+      <Position>1</Position>
+      <DataType>INTEGER|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="76" parent="15" name="name">
+      <Position>2</Position>
+      <DataType>varchar|0s</DataType>
+    </column>
+    <column id="77" parent="15" name="email">
+      <Position>3</Position>
+      <DataType>varchar|0s</DataType>
+    </column>
+    <column id="78" parent="15" name="created_at">
+      <Position>4</Position>
+      <DataType>datetime|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="79" parent="15" name="updated_at">
+      <Position>5</Position>
+      <DataType>datetime|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="80" parent="15" name="password_digest">
+      <Position>6</Position>
+      <DataType>varchar|0s</DataType>
+    </column>
+    <column id="81" parent="15" name="remember_digest">
+      <Position>7</Position>
+      <DataType>varchar|0s</DataType>
+    </column>
+    <column id="82" parent="15" name="admin">
+      <Position>8</Position>
+      <DataType>boolean|0s</DataType>
+      <DefaultExpression>&apos;f&apos;</DefaultExpression>
+    </column>
+    <column id="83" parent="15" name="activation_digest">
+      <Position>9</Position>
+      <DataType>varchar|0s</DataType>
+    </column>
+    <column id="84" parent="15" name="activated">
+      <Position>10</Position>
+      <DataType>boolean|0s</DataType>
+      <DefaultExpression>&apos;f&apos;</DefaultExpression>
+    </column>
+    <column id="85" parent="15" name="activated_at">
+      <Position>11</Position>
+      <DataType>datetime|0s</DataType>
+    </column>
+    <column id="86" parent="15" name="reset_digest">
+      <Position>12</Position>
+      <DataType>varchar|0s</DataType>
+    </column>
+    <column id="87" parent="15" name="reset_sent_at">
+      <Position>13</Position>
+      <DataType>datetime|0s</DataType>
+    </column>
+    <column id="88" parent="15" name="icon">
+      <Position>14</Position>
+      <DataType>varchar|0s</DataType>
+    </column>
+    <index id="89" parent="15" name="index_users_on_email">
+      <ColNames>email</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <key id="90" parent="15">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+  </database-model>
+</dataSource>
