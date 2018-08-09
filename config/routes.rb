@@ -41,4 +41,5 @@ Rails.application.routes.draw do
   post "app/register", to: 'apps#register'
   post "app/dot", to: 'apps#dot'
   post "app/dotDestroy",to: 'apps#dotDestroy'
+  get "app/getCommit", to: 'apps#getCommit'
 end

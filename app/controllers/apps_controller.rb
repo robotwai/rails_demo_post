@@ -103,29 +103,21 @@ class AppsController < ApplicationController
 	  	end
 	end
 
-	def commit
-		@micropost = Micropost.find(params[:id])
-		@comment = @micropost.build(body: params[:content],commenter: ' ')
-		if @comment.save
-			render json: {'status'=>"0",'data'=> {
-	        	'message': 'success'
-	        	}.to_json}
-		else
-			render json: {'status'=>"1",'data'=> {
-	        	'message': 'send faild'
-	        	}.to_json}
-		end
-	end
 
 	def dot
 		@dot = Dot.new(micropost_id: params[:micropost_id],user_id: @user.id)
 		@micropost = Micropost.find(params[:micropost_id])
+		@b= ''
+    	@micropost.picture.each do |pic|
+    		@b = @b+pic.url+','
+    	end
 		if @dot.save
 			render json: {'status'=>"0",'data'=> {
             	"id": @micropost.id,
             	"content": @micropost.content,
             	"user_id": @micropost.user_id,
-            	"picture": @micropost.picture.url,
+            
+            	"picture": @b,
             	"icon": @micropost.user.icon.url,
             	"user_name": @micropost.user.name,
             	"created_at": @micropost.created_at,
@@ -140,14 +132,19 @@ class AppsController < ApplicationController
 	end
 
 	def dotDestroy
-		@dot = Dot.find(params[:id])
+		@dot = Dot.find(params[:micropost_id])
 		@micropost = Micropost.find(@dot.micropost_id)
+		@b= ''
+		@micropost.picture.each do |pic|
+    		@b = @b+pic.url+','
+    	end
 		if @dot.destroy
 			render json: {'status'=>"0",'data'=> {
             	"id": @micropost.id,
             	"content": @micropost.content,
             	"user_id": @micropost.user_id,
-            	"picture": @micropost.picture.url,
+            	"picture": @b,
+            	"dotId": 0,
             	"icon": @micropost.user.icon.url,
             	"user_name": @micropost.user.name,
             	"created_at": @micropost.created_at,
@@ -161,26 +158,57 @@ class AppsController < ApplicationController
 	end
 
 	def getMicropost
+		@b= ''
+		@micropost.picture.each do |pic|
+    		@b = @b+pic.url+','
+    	end
 		@micropost = Micropost.find(params[:id])
-		render json: {'status'=>"0",'data'=> {
+		if @micropost!=nil
+			render json: {'status'=>"0",'data'=> {
             	"id": @micropost.id,
             	"content": @micropost.content,
+            	"picture": @b,
             	"user_id": @micropost.user_id,
             	"icon": @micropost.user.icon.url,
             	"user_name": @micropost.user.name,
             	"created_at": @micropost.created_at,
             	"dotId": @micropost.dotId(@user.id),
             	"dots_num": @micropost.dots.count,
-            	"comment_num": @micropost.comments.count,}.to_json} 
-
+            	"comment_num": @micropost.comments.count,}.to_json}
+		else
+			render json: {'status'=>"1",'data'=> {
+	        	'message': 'error'
+	        	}.to_json}
+		end
 	end
 
+	def getCommit
+		
+		@commits = Micropost.find(params[:id]).comments.paginate(page: params[:page])
+        a = Array.new
+        @commits.each do |x|
+        	@app_feed = {}
+
+        	@app_feed[:id] = x[:id]
+        	@app_feed[:body] = x[:body]
+        	
+        	@app_feed[:micropost_id] = x.micropost_id
+        	@app_feed[:created_at] = x.created_at
+        	@b = User.find(x.user_id)
+        	@app_feed[:user_id] = x.user_id
+        	@app_feed[:name] = @b.name
+        	@app_feed[:icon] = @b.icon
+        	a.push(@app_feed)
+        end
+        # render json: a
+        render json: {'status'=>"0",'data'=> a}
+	end
 
 	private
 	
 	def find_user
 		if params[:token]=='0'
-			@user = User.find(1)
+			@user = User.find(2)
 		else
 			@user = User.find_by(remember_digest: params[:token])
 		end
