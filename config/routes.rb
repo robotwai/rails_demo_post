@@ -43,4 +43,5 @@ Rails.application.routes.draw do
   post "app/dotDestroy",to: 'apps#dotDestroy'
   get "app/getCommit", to: 'apps#getCommit'
   get "app/getDots", to: 'apps#getDots'
+  post "app/seedcommit", to: 'apps#seedcommit'
 end

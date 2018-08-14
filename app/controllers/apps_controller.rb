@@ -224,6 +224,24 @@ class AppsController < ApplicationController
         render json: {'status'=>"0",'data'=> a}
 	end
 
+	def seedcommit
+
+
+			@commit = Comment.new(micropost_id: params[:micropost_id],body: params[:comment],user_id: @user.id)
+
+
+
+		if @commit.save
+			render json: {'status'=>"0",'data'=> {
+					'message': 'success'
+			}.to_json}
+		else
+			render json: {'status'=>"1",'data'=> {
+					'message': 'send faild'
+			}.to_json}
+		end
+	end
+
 	private
 	
 	def find_user
