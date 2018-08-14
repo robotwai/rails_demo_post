@@ -1,5 +1,5 @@
 class AppsController < ApplicationController
-	before_action :find_user, except: [:loggin,:register]
+	before_action :find_user, except: [:loggin,:register,:getCommit]
 
 	def loggin
 	  user = User.find_by(email: params["email"].downcase)
@@ -196,8 +196,28 @@ class AppsController < ApplicationController
         	@app_feed[:created_at] = x.created_at
         	@b = User.find(x.user_id)
         	@app_feed[:user_id] = x.user_id
-        	@app_feed[:name] = @b.name
-        	@app_feed[:icon] = @b.icon
+        	@app_feed[:user_name] = @b.name
+        	@app_feed[:icon] = @b.icon.url
+        	a.push(@app_feed)
+        end
+        # render json: a
+        render json: {'status'=>"0",'data'=> a}
+	end
+	
+	def getDots
+		
+		@dots = Micropost.find(params[:id]).dots.paginate(page: params[:page])
+        a = Array.new
+        @dots.each do |x|
+        	@app_feed = {}
+
+        	@app_feed[:id] = x[:id]
+        	
+        	@app_feed[:created_at] = x.created_at
+        	@b = User.find(x.user_id)
+        	@app_feed[:user_id] = x.user_id
+        	@app_feed[:user_name] = @b.name
+        	@app_feed[:icon] = @b.icon.url
         	a.push(@app_feed)
         end
         # render json: a
