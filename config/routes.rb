@@ -44,4 +44,6 @@ Rails.application.routes.draw do
   get "app/getCommit", to: 'apps#getCommit'
   get "app/getDots", to: 'apps#getDots'
   post "app/seedcommit", to: 'apps#seedcommit'
+  get "app/getUser", to: 'apps#getUser'
+  get "app/getUserMicroposts", to: 'apps#getUserMicroposts'
 end
