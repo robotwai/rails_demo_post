@@ -295,6 +295,63 @@ class AppsController < ApplicationController
         render json: {'status'=>"0",'data'=> a}
 	end
 
+	def follow
+		user = User.find(params[:id])
+		if @user.follow(user)
+			render json: {'status'=>"0",'data'=> {
+					'message': 'success'
+			}.to_json}
+		else
+			render json: {'status'=>"1",'data'=> {
+					'message': 'follow faild'
+			}.to_json}
+		end
+		
+	end
+
+	def unfollow
+		user = User.find(params[:id])
+		if @user.unfollow(user)
+			render json: {'status'=>"0",'data'=> {
+					'message': 'success'
+			}.to_json}
+		else
+			render json: {'status'=>"1",'data'=> {
+					'message': 'follow faild'
+			}.to_json}
+		end
+		
+	end
+
+	def get_follower_users
+		if params[:type]=='1'
+			@users_items =User.find(params[:id]).following.paginate(page: params[:page])
+		else
+			@users_items =User.find(params[:id]).followers.paginate(page: params[:page])
+		end
+		
+        a = Array.new
+        @users_items.each do |x|
+        	@app_feed = {}
+        	@app_feed[:id] = x[:id]
+        	@app_feed[:sign_content] = "生命像一场没有尽头的旅行"
+        	@app_feed[:name] = x[:name]
+        	@app_feed[:icon] = x.icon.url
+        	@app_feed[:created_at] = x[:created_at]
+        	b= 0
+			if(@user.following?(x))
+				b = b+2
+			end
+			if(x.following?(@user))
+				b = b+1
+			end
+			@app_feed[:relation] = b
+        	a.push(@app_feed)
+        end
+        # render json: a
+        render json: {'status'=>"0",'data'=> a}
+	end
+
 	private
 	
 	def find_user

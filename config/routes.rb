@@ -46,4 +46,7 @@ Rails.application.routes.draw do
   post "app/seedcommit", to: 'apps#seedcommit'
   get "app/getUser", to: 'apps#getUser'
   get "app/getUserMicroposts", to: 'apps#getUserMicroposts'
+  post "app/unfollow", to: 'apps#unfollow'
+  post "app/follow", to: 'apps#follow'
+  get "app/get_follower_users", to: 'apps#get_follower_users'
 end
