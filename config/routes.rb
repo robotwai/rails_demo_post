@@ -49,4 +49,5 @@ Rails.application.routes.draw do
   post "app/unfollow", to: 'apps#unfollow'
   post "app/follow", to: 'apps#follow'
   get "app/get_follower_users", to: 'apps#get_follower_users'
+  post "app/user_update", to: 'apps#user_update'
 end

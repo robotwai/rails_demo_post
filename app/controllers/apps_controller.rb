@@ -14,7 +14,8 @@ class AppsController < ApplicationController
             	"token": user.remember_digest,
             	"icon": user.icon.url,
             	"id": user.id,
-            	"sign_content": "生命像一场没有尽头的旅行",
+            	"sign_content": user.sign_content,
+							"sex": user.sex,
             	"followed": user.following.count,
             	"follower": user.followers.count}.to_json} 
 	      else
@@ -257,7 +258,8 @@ class AppsController < ApplicationController
             	"email": user.email,
             	"icon": user.icon.url,
             	"id": user.id,
-            	"sign_content": "生命像一场没有尽头的旅行",
+            	"sign_content": user.sign_content,
+							"sex": user.sex,
             	"followed": user.following.count,
             	"relation": b,
             	"micropost_num": user.microposts.size,
@@ -330,15 +332,16 @@ class AppsController < ApplicationController
 			@users_items =User.find(params[:id]).followers.paginate(page: params[:page])
 		end
 		
-        a = Array.new
-        @users_items.each do |x|
-        	@app_feed = {}
-        	@app_feed[:id] = x[:id]
-        	@app_feed[:sign_content] = "生命像一场没有尽头的旅行"
-        	@app_feed[:name] = x[:name]
-        	@app_feed[:icon] = x.icon.url
-        	@app_feed[:created_at] = x[:created_at]
-        	b= 0
+		a = Array.new
+		@users_items.each do |x|
+			@app_feed = {}
+			@app_feed[:id] = x[:id]
+			@app_feed[:sign_content] = x.sign_content
+			@app_feed[:sex] = x.sex
+			@app_feed[:name] = x[:name]
+			@app_feed[:icon] = x.icon.url
+			@app_feed[:created_at] = x[:created_at]
+			b= 0
 			if(@user.following?(x))
 				b = b+2
 			end
@@ -347,9 +350,40 @@ class AppsController < ApplicationController
 			end
 			@app_feed[:relation] = b
         	a.push(@app_feed)
-        end
-        # render json: a
-        render json: {'status'=>"0",'data'=> a}
+		end
+		# render json: a
+		render json: {'status'=>"0",'data'=> a}
+	end
+
+	def user_update
+		if params[:name]!=nil
+			@user.name = params[:name]
+		end
+		if params[:sign_content]!=nil
+			@user.sign_content = params[:sign_content]
+		end
+		if params[:sex]!=nil
+			@user.sex = params[:sex]
+		end
+		if params[:icon]!=nil
+			@user.icon = params[:icon]
+		end
+		if @user.save
+			render json: {'status'=>"0",'data'=> {
+					"name": @user.name,
+					"email": @user.email,
+					"token": @user.remember_digest,
+					"icon": @user.icon.url,
+					"id": @user.id,
+					"sign_content": @user.sign_content,
+					"sex": @user.sex,
+					"followed": @user.following.count,
+					"follower": @user.followers.count}.to_json}
+		else
+			render json: {'status'=>"1",'data'=> {
+					'message': 'update faild'
+			}.to_json}
+		end
 	end
 
 	private
