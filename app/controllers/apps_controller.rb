@@ -368,6 +368,7 @@ class AppsController < ApplicationController
 		if params[:icon]!=nil
 			@user.icon = params[:icon]
 		end
+		p @user
 		if @user.save
 			render json: {'status'=>"0",'data'=> {
 					"name": @user.name,
@@ -379,7 +380,9 @@ class AppsController < ApplicationController
 					"sex": @user.sex,
 					"followed": @user.following.count,
 					"follower": @user.followers.count}.to_json}
+			p 'ok'
 		else
+			p 'error'
 			render json: {'status'=>"1",'data'=> {
 					'message': 'update faild'
 			}.to_json}
