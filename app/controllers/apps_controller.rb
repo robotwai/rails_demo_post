@@ -297,6 +297,33 @@ class AppsController < ApplicationController
         render json: {'status'=>"0",'data'=> a}
 	end
 
+	def getUserDotMicroposts
+		@feed_items =User.find(params[:user_id]).dots.paginate(page: params[:page])
+		a = Array.new
+		@feed_items.each do |y|
+			x = y.micropost
+			@app_feed = {}
+			@app_feed[:id] = x[:id]
+			@app_feed[:content] = x[:content]
+			@b= ''
+			x.picture.each do |pic|
+				@b = @b+pic.url+','
+			end
+
+			@app_feed[:picture] = @b
+			@app_feed[:user_id] = x[:user_id]
+			@app_feed[:user_name] = User.find(x[:user_id]).name
+			@app_feed[:icon] = User.find(x[:user_id]).icon.url
+			@app_feed[:created_at] = x[:created_at]
+			@app_feed[:dotId] = x.dotId(@user.id)
+			@app_feed[:dots_num] = x.dots.count
+			@app_feed[:comment_num] = x.comments.count
+			a.push(@app_feed)
+		end
+		# render json: a
+		render json: {'status'=>"0",'data'=> a}
+	end
+
 	def follow
 		user = User.find(params[:id])
 		if @user.follow(user)
