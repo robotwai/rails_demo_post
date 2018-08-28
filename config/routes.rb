@@ -43,6 +43,7 @@ Rails.application.routes.draw do
   post "app/dotDestroy",to: 'apps#dotDestroy'
   get "app/getCommit", to: 'apps#getCommit'
   get "app/getDots", to: 'apps#getDots'
+  get "app/getMicropost", to: 'apps#getMicropost'
   post "app/seedcommit", to: 'apps#seedcommit'
   get "app/getUser", to: 'apps#getUser'
   get "app/getUserMicroposts", to: 'apps#getUserMicroposts'

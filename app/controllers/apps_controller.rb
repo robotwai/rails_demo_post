@@ -159,11 +159,11 @@ class AppsController < ApplicationController
 	end
 
 	def getMicropost
+		@micropost = Micropost.find(params[:id])
 		@b= ''
 		@micropost.picture.each do |pic|
     		@b = @b+pic.url+','
     	end
-		@micropost = Micropost.find(params[:id])
 		if @micropost!=nil
 			render json: {'status'=>"0",'data'=> {
             	"id": @micropost.id,
