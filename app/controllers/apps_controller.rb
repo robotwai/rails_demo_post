@@ -5,9 +5,9 @@ class AppsController < ApplicationController
 	  user = User.find_by(email: params["email"].downcase)
       ps = params["password"]
       if user && user.authenticate(ps)
-	      if user.activated?
+	      
             remember(user)
-            p user.icon
+            
             render json: {'status'=>"0",'data'=> {
             	"name": user.name,
             	"email": user.email,
@@ -18,11 +18,7 @@ class AppsController < ApplicationController
 							"sex": user.sex,
             	"followed": user.following.count,
             	"follower": user.followers.count}.to_json} 
-	      else
-            render json: {'status'=>"1",'data'=> {
-	        	'message': 'Check your email for the activation link'
-	        	}.to_json}
-	      end
+	     
   	  else
           render json: {'status'=>"1",'data'=> {
 	        	'message': 'Invalid email/password combination'
@@ -320,6 +316,32 @@ class AppsController < ApplicationController
 			@app_feed[:comment_num] = x.comments.count
 			a.push(@app_feed)
 		end
+		# render json: a
+		render json: {'status'=>"0",'data'=> a}
+	end
+
+	def getFindMicroposts
+		@feed_items =Micropost.paginate(page: params[:page])
+		a = Array.new
+        @feed_items.each do |x|
+        	@app_feed = {}
+        	@app_feed[:id] = x[:id]
+        	@app_feed[:content] = x[:content]
+        	@b= ''
+        	x.picture.each do |pic|
+        		@b = @b+pic.url+','
+        	end
+
+        	@app_feed[:picture] = @b
+        	@app_feed[:user_id] = x[:user_id]
+        	@app_feed[:user_name] = User.find(x[:user_id]).name
+        	@app_feed[:icon] = User.find(x[:user_id]).icon.url
+        	@app_feed[:created_at] = x[:created_at]
+        	@app_feed[:dotId] = x.dotId(@user.id)
+        	@app_feed[:dots_num] = x.dots.count
+        	@app_feed[:comment_num] = x.comments.count
+        	a.push(@app_feed)
+        end
 		# render json: a
 		render json: {'status'=>"0",'data'=> a}
 	end

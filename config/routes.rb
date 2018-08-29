@@ -52,4 +52,5 @@ Rails.application.routes.draw do
   get "app/get_follower_users", to: 'apps#get_follower_users'
   post "app/user_update", to: 'apps#user_update'
   get "app/getUserDotMicroposts", to: 'apps#getUserDotMicroposts'
+  get "app/getFindMicroposts", to: 'apps#getFindMicroposts'
 end
