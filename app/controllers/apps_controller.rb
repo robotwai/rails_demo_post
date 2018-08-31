@@ -438,6 +438,19 @@ class AppsController < ApplicationController
 		end
 	end
 
+	def micropost_destroy
+		@micropost = Micropost.find(params[:id])
+		if @micropost.destroy
+			render json: {'status'=>"0",'data'=> {
+					'message': 'success'
+			}.to_json}
+		else
+			render json: {'status'=>"1",'data'=> {
+					'message': 'destroy faild'
+			}.to_json}
+		end
+	end
+
 	private
 	
 	def find_user

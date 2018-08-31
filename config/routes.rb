@@ -53,4 +53,5 @@ Rails.application.routes.draw do
   post "app/user_update", to: 'apps#user_update'
   get "app/getUserDotMicroposts", to: 'apps#getUserDotMicroposts'
   get "app/getFindMicroposts", to: 'apps#getFindMicroposts'
+  post "app/micropost_destroy",to: 'apps#micropost_destroy'
 end
