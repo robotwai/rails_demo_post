@@ -451,11 +451,31 @@ class AppsController < ApplicationController
 		end
 	end
 
+	def account_destroy
+		if @user.authenticate(params[:password])!=false
+			if @user.destroy
+				render json: {'status'=>"0",'data'=> {
+						'message': 'success'
+				}.to_json}
+			else
+				render json: {'status'=>"1",'data'=> {
+						'message': 'destroy faild'
+				}.to_json}
+			end
+		else
+			render json: {'status'=>"1",'data'=> {
+						'message': 'password is wrong'
+				}.to_json}
+
+		end
+		
+	end
+
 	private
 	
 	def find_user
-		if params[:token]=='0'
-			@user = User.find(2)
+		if params[:token]=='1'
+			@user = User.find(0)
 		else
 			@user = User.find_by(remember_digest: params[:token])
 		end
