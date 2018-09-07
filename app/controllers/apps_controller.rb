@@ -1,5 +1,5 @@
 class AppsController < ApplicationController
-	before_action :find_user, except: [:loggin,:register,:getCommit]
+	before_action :find_user, except: [:loggin,:register,:getCommit,:getFindMicroposts]
 
 	def loggin
 	  user = User.find_by(email: params["email"].downcase)
@@ -21,7 +21,7 @@ class AppsController < ApplicationController
 	     
   	  else
           render json: {'status'=>"1",'data'=> {
-	        	'message': 'Invalid email/password combination'
+	        	'message': '账号密码错误'
 	        	}.to_json}
 	  end
 
@@ -76,7 +76,7 @@ class AppsController < ApplicationController
 	        	}.to_json}
 		else
 			render json: {'status'=>"1",'data'=> {
-	        	'message': 'send faild'
+	        	'message': '发送失败'
 	        	}.to_json}
 		end
 	end
@@ -95,7 +95,7 @@ class AppsController < ApplicationController
 	  	else
 	       
 	        render json: {'status'=>"1",'data'=> {
-	        	'message': 'Invalid email/password combination'
+	        	'message': '账号或密码无效'
 	        	}.to_json}
 	  	end
 	end
@@ -123,7 +123,7 @@ class AppsController < ApplicationController
             	"comment_num": @micropost.comments.count,}.to_json} 
         else
         	render json: {'status'=>"1",'data'=> {
-	        	'message': 'error'
+	        	'message': '请检查网络'
 	        	}.to_json}
 		end
 	end
@@ -149,7 +149,7 @@ class AppsController < ApplicationController
             	"comment_num": @micropost.comments.count,}.to_json}
         else
         	render json: {'status'=>"1",'data'=> {
-	        	'message': 'error'
+	        	'message': '请检查网络'
 	        	}.to_json}
 	    end
 	end
@@ -174,7 +174,7 @@ class AppsController < ApplicationController
             	"comment_num": @micropost.comments.count,}.to_json}
 		else
 			render json: {'status'=>"1",'data'=> {
-	        	'message': 'error'
+	        	'message': '请检查网络'
 	        	}.to_json}
 		end
 	end
@@ -234,7 +234,7 @@ class AppsController < ApplicationController
 			}.to_json}
 		else
 			render json: {'status'=>"1",'data'=> {
-					'message': 'send faild'
+					'message': '发送失败'
 			}.to_json}
 		end
 	end
@@ -262,7 +262,7 @@ class AppsController < ApplicationController
             	"follower": user.followers.count}.to_json} 
         else
             render json: {'status'=>"1",'data'=> {
-					'message': 'user is dismiss'
+					'message': '用户未找到'
 			}.to_json}	
 		end
 	end
@@ -322,28 +322,57 @@ class AppsController < ApplicationController
 
 	def getFindMicroposts
 		@feed_items =Micropost.paginate(page: params[:page])
-		a = Array.new
-        @feed_items.each do |x|
-        	@app_feed = {}
-        	@app_feed[:id] = x[:id]
-        	@app_feed[:content] = x[:content]
-        	@b= ''
-        	x.picture.each do |pic|
-        		@b = @b+pic.url+','
-        	end
+		if params[:token].nil?
+			a = Array.new
+	        @feed_items.each do |x|
+	        	@app_feed = {}
+	        	@app_feed[:id] = x[:id]
+	        	@app_feed[:content] = x[:content]
+	        	@b= ''
+	        	x.picture.each do |pic|
+	        		@b = @b+pic.url+','
+	        	end
 
-        	@app_feed[:picture] = @b
-        	@app_feed[:user_id] = x[:user_id]
-        	@app_feed[:user_name] = User.find(x[:user_id]).name
-        	@app_feed[:icon] = User.find(x[:user_id]).icon.url
-        	@app_feed[:created_at] = x[:created_at]
-        	@app_feed[:dotId] = x.dotId(@user.id)
-        	@app_feed[:dots_num] = x.dots.count
-        	@app_feed[:comment_num] = x.comments.count
-        	a.push(@app_feed)
-        end
-		# render json: a
-		render json: {'status'=>"0",'data'=> a}
+	        	@app_feed[:picture] = @b
+	        	@app_feed[:user_id] = x[:user_id]
+	        	@app_feed[:user_name] = User.find(x[:user_id]).name
+	        	@app_feed[:icon] = User.find(x[:user_id]).icon.url
+	        	@app_feed[:created_at] = x[:created_at]
+
+	        	@app_feed[:dotId] = 0
+	        	@app_feed[:dots_num] = x.dots.count
+	        	@app_feed[:comment_num] = x.comments.count
+	        	a.push(@app_feed)
+	        end
+			# render json: a
+			render json: {'status'=>"0",'data'=> a}
+		else
+			@user = User.find_by(remember_digest: params[:token])
+			a = Array.new
+	        @feed_items.each do |x|
+	        	@app_feed = {}
+	        	@app_feed[:id] = x[:id]
+	        	@app_feed[:content] = x[:content]
+	        	@b= ''
+	        	x.picture.each do |pic|
+	        		@b = @b+pic.url+','
+	        	end
+
+	        	@app_feed[:picture] = @b
+	        	@app_feed[:user_id] = x[:user_id]
+	        	@app_feed[:user_name] = User.find(x[:user_id]).name
+	        	@app_feed[:icon] = User.find(x[:user_id]).icon.url
+	        	@app_feed[:created_at] = x[:created_at]
+
+	        	@app_feed[:dotId] = x.dotId(@user.id)
+	        	@app_feed[:dots_num] = x.dots.count
+	        	@app_feed[:comment_num] = x.comments.count
+	        	a.push(@app_feed)
+	        end
+			# render json: a
+			render json: {'status'=>"0",'data'=> a}
+		end
+		
 	end
 
 	def follow
@@ -354,7 +383,7 @@ class AppsController < ApplicationController
 			}.to_json}
 		else
 			render json: {'status'=>"1",'data'=> {
-					'message': 'follow faild'
+					'message': '关注失败'
 			}.to_json}
 		end
 		
@@ -368,7 +397,7 @@ class AppsController < ApplicationController
 			}.to_json}
 		else
 			render json: {'status'=>"1",'data'=> {
-					'message': 'follow faild'
+					'message': '取消关注失败'
 			}.to_json}
 		end
 		
@@ -433,7 +462,7 @@ class AppsController < ApplicationController
 		else
 			p 'error'
 			render json: {'status'=>"1",'data'=> {
-					'message': 'update faild'
+					'message': '提交失败'
 			}.to_json}
 		end
 	end
@@ -446,7 +475,7 @@ class AppsController < ApplicationController
 			}.to_json}
 		else
 			render json: {'status'=>"1",'data'=> {
-					'message': 'destroy faild'
+					'message': '删除失败'
 			}.to_json}
 		end
 	end
@@ -464,7 +493,7 @@ class AppsController < ApplicationController
 			end
 		else
 			render json: {'status'=>"1",'data'=> {
-						'message': 'password is wrong'
+						'message': '密码错误'
 				}.to_json}
 
 		end
