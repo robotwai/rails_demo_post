@@ -5,7 +5,10 @@
 	</div>
 	<%= f.submit "Post",class: "btn btn-primary" %>
 	<span class="picture">
-		<%= f.file_field :picture , multiple: true,accept: 'image/jpeg,image/gif,image/png' %>
+		选择要上传的图片<%= f.file_field :picture , multiple: true,accept: 'image/jpeg,image/gif,image/png' %>
+	</span>
+	<span class="video">
+		选择要上传的视频<%= f.file_field :video ,accept: 'video/mp4'%>
 	</span>
 <% end %>
 

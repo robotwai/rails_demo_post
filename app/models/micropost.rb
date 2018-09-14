@@ -2,6 +2,7 @@ class Micropost < ApplicationRecord
   belongs_to :user
   default_scope -> {order(created_at:  :desc)}
   mount_uploaders :picture,PictureUploader
+  mount_uploader :video, VideouploaderUploader
   serialize :picture, JSON # If you use SQLite, add this line.
   validates :user_id, presence: true
   validates :content, presence: true,length: { maximum: 140}

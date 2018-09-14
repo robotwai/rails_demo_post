@@ -4,7 +4,12 @@
 	<span class="user"> <%= link_to micropost.user.name,micropost.user %></span>
 	<span class="content">
 	 	<%= micropost.content %>
-	 	
+	 	 
+	 	 <% if micropost.video? %>
+		 	 <video src= "<%= micropost.video.url %>" controls="controls" width="320" height="240">
+			your browser does not support the video tag
+			</video>
+	 	 <% end %>
 	 	<% micropost.picture.each do |pic| %>
 			<%= image_tag pic.url %>
 	 	<% end %>

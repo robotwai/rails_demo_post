@@ -35,6 +35,7 @@ class AppsController < ApplicationController
         	@app_feed = {}
         	@app_feed[:id] = x[:id]
         	@app_feed[:content] = x[:content]
+        	@app_feed[:video] = x.video.url
         	@b= ''
         	x.picture.each do |pic|
         		@b = @b+pic.url+','
@@ -58,8 +59,12 @@ class AppsController < ApplicationController
 		picNum = params[:picNum].to_i
 		p picNum
 		if picNum==0
-
-			@micropost = @user.microposts.build(content: params[:content] )
+			if params[:video]!=nil
+				@micropost = @user.microposts.build(content: params[:content] ,video: params[:video])
+			else
+				@micropost = @user.microposts.build(content: params[:content])
+			end
+			
 		else
 			pic = Array.new
 			for i in 0..picNum
@@ -113,7 +118,7 @@ class AppsController < ApplicationController
             	"id": @micropost.id,
             	"content": @micropost.content,
             	"user_id": @micropost.user_id,
-            
+            	"video": @micropost.video.url,
             	"picture": @b,
             	"icon": @micropost.user.icon.url,
             	"user_name": @micropost.user.name,
@@ -140,6 +145,7 @@ class AppsController < ApplicationController
             	"id": @micropost.id,
             	"content": @micropost.content,
             	"user_id": @micropost.user_id,
+            	"video": @micropost.video.url,
             	"picture": @b,
             	"dotId": 0,
             	"icon": @micropost.user.icon.url,
@@ -164,6 +170,7 @@ class AppsController < ApplicationController
 			render json: {'status'=>"0",'data'=> {
             	"id": @micropost.id,
             	"content": @micropost.content,
+            	"video": @micropost.video.url,
             	"picture": @b,
             	"user_id": @micropost.user_id,
             	"icon": @micropost.user.icon.url,
@@ -281,6 +288,7 @@ class AppsController < ApplicationController
 
         	@app_feed[:picture] = @b
         	@app_feed[:user_id] = x[:user_id]
+        	@app_feed[:video] = x[:video].url
         	@app_feed[:user_name] = User.find(x[:user_id]).name
         	@app_feed[:icon] = User.find(x[:user_id]).icon.url
         	@app_feed[:created_at] = x[:created_at]
@@ -308,6 +316,7 @@ class AppsController < ApplicationController
 
 			@app_feed[:picture] = @b
 			@app_feed[:user_id] = x[:user_id]
+			@app_feed[:video] = x[:video].url
 			@app_feed[:user_name] = User.find(x[:user_id]).name
 			@app_feed[:icon] = User.find(x[:user_id]).icon.url
 			@app_feed[:created_at] = x[:created_at]
@@ -335,6 +344,7 @@ class AppsController < ApplicationController
 
 	        	@app_feed[:picture] = @b
 	        	@app_feed[:user_id] = x[:user_id]
+	        	@app_feed[:video] = x.video.url
 	        	@app_feed[:user_name] = User.find(x[:user_id]).name
 	        	@app_feed[:icon] = User.find(x[:user_id]).icon.url
 	        	@app_feed[:created_at] = x[:created_at]
@@ -359,6 +369,7 @@ class AppsController < ApplicationController
 	        	end
 
 	        	@app_feed[:picture] = @b
+	        	@app_feed[:video] = x.video.url
 	        	@app_feed[:user_id] = x[:user_id]
 	        	@app_feed[:user_name] = User.find(x[:user_id]).name
 	        	@app_feed[:icon] = User.find(x[:user_id]).icon.url
