@@ -1,3 +1,4 @@
+#!/usr/bin/ruby
 class Micropost < ApplicationRecord
   belongs_to :user
   default_scope -> {order(created_at:  :desc)}
@@ -24,6 +25,25 @@ class Micropost < ApplicationRecord
     else
       return self.dots.find_by(user_id: user_id).id
     end
+  end
+
+  def video_pre_url
+    if self.video.url!=nil
+      String x =self.video.url
+      String c = x.slice(0,x.rindex("/"))
+      String b= x.slice(x.rindex("/"),x.length)
+
+      String @url = b.slice(1,b.rindex("."))
+      @url = c+"/thumb_"+@url+"jpeg"
+      # a = self.video.url.str[0,5]
+      # @url =self.video.url
+      return @url
+  
+    else
+      return ""
+    end
+
+    
   end
   
   private

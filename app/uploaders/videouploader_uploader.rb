@@ -1,7 +1,8 @@
 class VideouploaderUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
-  # include CarrierWave::MiniMagick
+  include VideoThumbnailer
+  include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
   storage :file
@@ -29,14 +30,20 @@ class VideouploaderUploader < CarrierWave::Uploader::Base
   # end
 
   # Create different versions of your uploaded files:
-  # version :thumb do
-  #   process resize_to_fit: [50, 50]
-  # end
+  version :thumb do
+     process generate_thumb:[{quality:5, time_frame: '00:0:01', file_extension: 'jpeg'}]
+    def full_filename for_file
+      png_name for_file, version_name, "jpeg"
+    end
+  end
 
+  def png_name for_file, version_name, format
+    %Q{#{version_name}_#{for_file.chomp(File.extname(for_file))}.#{format}}
+  end
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   def extension_whitelist
-    %w(mp4 avi)
+    %w(mp4 avi mov)
   end
 
   # Override the filename of the uploaded files:

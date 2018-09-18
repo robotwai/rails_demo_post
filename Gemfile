@@ -40,6 +40,8 @@ gem 'mini_magick' ,'~> 4.5.1'
 
 gem 'rails-i18n', '~> 4.0.0' # For 4.0.x
 gem 'http_accept_language'
+gem 'streamio-ffmpeg'
+gem 'video_thumbnailer'
 
 
 # Use Capistrano for deployment
