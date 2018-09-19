@@ -181,7 +181,8 @@ class AppsController < ApplicationController
             	"icon": @micropost.user.icon.url,
             	"user_name": @micropost.user.name,
             	"created_at": @micropost.created_at,
-            	"dotId": @micropost.dotId(@user.id),
+            	
+            	"dotId": @user!=nil ? @micropost.dotId(@user.id):0,
             	"dots_num": @micropost.dots.count,
             	"comment_num": @micropost.comments.count,}.to_json}
 		else
@@ -254,12 +255,15 @@ class AppsController < ApplicationController
 	def getUser
 		user = User.find(params[:user_id])
 		b= 0
-		if(@user.following?(user))
-			b = b+2
+		if @user!=nil
+			if(@user.following?(user))
+				b = b+2
+			end
+			if(user.following?(@user))
+				b = b+1
+			end
 		end
-		if(user.following?(@user))
-			b = b+1
-		end
+		
 		if user!=nil
 			render json: {'status'=>"0",'data'=> {
             	"name": user.name,
@@ -293,12 +297,16 @@ class AppsController < ApplicationController
 
         	@app_feed[:picture] = @b
         	@app_feed[:user_id] = x[:user_id]
-        	@app_feed[:video] = x[:video].url
+        	@app_feed[:video] = x.video!=nil ? x.video.url : nil
         	@app_feed[:video_pre] = x.video_pre_url
         	@app_feed[:user_name] = User.find(x[:user_id]).name
         	@app_feed[:icon] = User.find(x[:user_id]).icon.url
         	@app_feed[:created_at] = x[:created_at]
-        	@app_feed[:dotId] = x.dotId(@user.id)
+        	if @user!=nil
+				@app_feed[:dotId] = x.dotId(@user.id)
+			else
+				@app_feed[:dotId] = 0
+        	end
         	@app_feed[:dots_num] = x.dots.count
         	@app_feed[:comment_num] = x.comments.count
         	a.push(@app_feed)
@@ -322,12 +330,16 @@ class AppsController < ApplicationController
 
 			@app_feed[:picture] = @b
 			@app_feed[:user_id] = x[:user_id]
-			@app_feed[:video] = x[:video].url
+			@app_feed[:video] = x.video!=nil ? x.video.url : nil
 			@app_feed[:video_pre] = x.video_pre_url
 			@app_feed[:user_name] = User.find(x[:user_id]).name
 			@app_feed[:icon] = User.find(x[:user_id]).icon.url
 			@app_feed[:created_at] = x[:created_at]
-			@app_feed[:dotId] = x.dotId(@user.id)
+			if @user!=nil
+				@app_feed[:dotId] = x.dotId(@user.id)
+			else
+				@app_feed[:dotId] = 0
+        	end
 			@app_feed[:dots_num] = x.dots.count
 			@app_feed[:comment_num] = x.comments.count
 			a.push(@app_feed)
