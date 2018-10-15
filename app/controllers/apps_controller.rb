@@ -1,5 +1,5 @@
 class AppsController < ApplicationController
-	before_action :find_user, except: [:loggin,:register,:getCommit,:getFindMicroposts]
+	before_action :find_user, except: [:loggin,:register,:getCommit]
 
 	def loggin
 	  user = User.find_by(email: params["email"].downcase)
@@ -86,7 +86,7 @@ class AppsController < ApplicationController
 	        	}.to_json}
 		end
 	end
-	//小程序专用
+	
 	def sendmicropost
 		picNum = params[:picNum].to_i
 		p picNum
