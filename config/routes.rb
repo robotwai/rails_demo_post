@@ -55,4 +55,5 @@ Rails.application.routes.draw do
   get "app/getFindMicroposts", to: 'apps#getFindMicroposts'
   post "app/micropost_destroy",to: 'apps#micropost_destroy'
   post "app/account_destroy",to: 'apps#account_destroy'
+  post "app/sendmicropost", to: 'apps#sendmicropost'
 end

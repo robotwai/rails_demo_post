@@ -86,7 +86,37 @@ class AppsController < ApplicationController
 	        	}.to_json}
 		end
 	end
+	//小程序专用
+	def sendmicropost
+		picNum = params[:picNum].to_i
+		p picNum
+		if picNum==0
+			if params[:video]!=nil
+				@micropost = @user.microposts.build(content: params[:content] ,video: params[:video])
+			else
+				@micropost = @user.microposts.build(content: params[:content])
+			end
+			
+		else
+			# pic = Array.new
+			# for i in 0..picNum
+			# 	name = 'picture'+i.to_s
+			# 	pic.push(params[name])
+			# end
+			@micropost = @user.microposts.build(content: params[:content] ,picture: params[:picture] )
+		end
 
+      	
+      	if @micropost.save
+			render json: {'status'=>"0",'data'=> {
+	        	'message': 'success'
+	        	}.to_json}
+		else
+			render json: {'status'=>"1",'data'=> {
+	        	'message': '发送失败'
+	        	}.to_json}
+		end
+	end
 	def register
 		@user = User.new
         @user.name = params[:name]
