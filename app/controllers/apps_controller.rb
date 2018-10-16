@@ -1,5 +1,5 @@
 class AppsController < ApplicationController
-	before_action :find_user, except: [:loggin,:register,:getCommit]
+	before_action :find_user, except: [:loggin,:register,:getCommit,:getFindMicroposts]
 
 	def loggin
 	  user = User.find_by(email: params["email"].downcase)
